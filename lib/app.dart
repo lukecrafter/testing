@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yuv_quiz/src/page/color_card.dart';
+import 'package:yuv_quiz/src/page/color_card_page.dart';
 import 'package:yuv_quiz/src/shared/config/no_scroll_glow_behavior.dart';
 
 class YuvSampleApp extends StatelessWidget {
@@ -11,7 +11,8 @@ class YuvSampleApp extends StatelessWidget {
       title: 'Yuv Sample App',
       scrollBehavior: NoScrollGlowBehavior(),
       debugShowCheckedModeBanner: false,
-      home: const ColorCard(),
+      home: const ColorCardPage(),
+      theme: ThemeData(useMaterial3: true),
       builder: (BuildContext context, Widget? child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
