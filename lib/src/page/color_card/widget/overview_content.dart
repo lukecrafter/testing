@@ -10,7 +10,13 @@ class OverviewContent extends HookConsumerWidget {
       children: [
         // TODO: Content
         Flexible(
-          child: Container(),
+          child: Center(
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              color: Colors.red,
+            ),
+          ),
         )
       ],
     );
