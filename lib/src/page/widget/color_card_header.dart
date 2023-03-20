@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yuv_quiz/src/domain/user/store/user_provider.dart';
 import 'package:yuv_quiz/src/shared/widget/close_button.dart';
@@ -36,8 +37,7 @@ class ColorCardHeader extends HookConsumerWidget {
           error: (error, stack) => Container(),
           data: (value) => Text(
             ' ${value.userName}',
-            style: const TextStyle(
-              color: Colors.black,
+            style: GoogleFonts.spaceGrotesk(
               fontSize: 20.0,
             ),
           ),
