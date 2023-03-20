@@ -15,7 +15,7 @@ class FilterSelectionButton extends HookConsumerWidget {
     this.padding = const EdgeInsets.only(
       left: 19.0,
       right: 19.0,
-      top: 6.0,
+      top: 8.0,
       bottom: 8.0,
     ),
   });

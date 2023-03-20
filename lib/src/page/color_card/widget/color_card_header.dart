@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yuv_quiz/src/domain/reduce_waste/store/reduce_waste_provider.dart';
 import 'package:yuv_quiz/src/domain/user/store/user_provider.dart';
 import 'package:yuv_quiz/src/page/color_card/constant/selected_item.dart';
 import 'package:yuv_quiz/src/shared/widget/close_button.dart';
@@ -19,6 +20,7 @@ class ColorCardHeader extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
+    final selectedReduceWasteOption = ref.watch(selectedReduceAmountProvider);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 42.0),
@@ -67,10 +69,27 @@ class ColorCardHeader extends HookConsumerWidget {
               text: 'Details',
             ),
           ),
-          FilterSelectionButton(
-            onPressed: () => cardViewButtonOnPressed(CardView.activity),
-            isSelected: selectedCardView == CardView.activity,
-            text: 'Activity',
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              FilterSelectionButton(
+                onPressed: () => cardViewButtonOnPressed(CardView.activity),
+                isSelected: selectedCardView == CardView.activity,
+                text: 'Activity',
+              ),
+              Positioned(
+                top: -5.0,
+                right: 0.0,
+                child: Container(
+                  width: 18.0,
+                  height: 18.0,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFF0000),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
