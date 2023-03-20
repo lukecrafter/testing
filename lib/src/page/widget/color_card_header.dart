@@ -55,44 +55,20 @@ class ColorCardHeader extends HookConsumerWidget {
             ),
           ),
           FilterSelectionButton(
-            onPressed: () {
-              cardViewButtonOnPressed(CardView.overview);
-              //mock up only
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Filter button pressed'),
-                ),
-              );
-            },
+            onPressed: () => cardViewButtonOnPressed(CardView.overview),
             isSelected: selectedCardView == CardView.overview,
             text: 'Overview',
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 19.0),
             child: FilterSelectionButton(
-              onPressed: () {
-                cardViewButtonOnPressed(CardView.details);
-                //mock up only
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Filter button pressed'),
-                  ),
-                );
-              },
+              onPressed: () => cardViewButtonOnPressed(CardView.details),
               isSelected: selectedCardView == CardView.details,
               text: 'Details',
             ),
           ),
           FilterSelectionButton(
-            onPressed: () {
-              cardViewButtonOnPressed(CardView.activity);
-              //mock up only
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Filter button pressed'),
-                ),
-              );
-            },
+            onPressed: () => cardViewButtonOnPressed(CardView.activity),
             isSelected: selectedCardView == CardView.activity,
             text: 'Activity',
           ),

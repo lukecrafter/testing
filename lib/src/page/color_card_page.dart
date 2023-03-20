@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yuv_quiz/src/page/constant/selected_item.dart';
 import 'package:yuv_quiz/src/page/widget/color_card_header.dart';
+import 'package:yuv_quiz/src/page/widget/overview_content.dart';
 
 class ColorCardPage extends HookConsumerWidget {
   const ColorCardPage({super.key});
@@ -18,7 +19,7 @@ class ColorCardPage extends HookConsumerWidget {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 32.5),
         child: Column(
           children: [
             const SizedBox(height: 67.0),
@@ -34,15 +35,27 @@ class ColorCardPage extends HookConsumerWidget {
             // content
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: const [
-                    Text('content'),
-                  ],
-                ),
+                child: selectedCardView.value == CardView.overview
+                    ? const OverviewContent()
+                    : selectedCardView.value == CardView.details
+                        ? const Center(
+                            child: Text(
+                              'Details Content. Coming soon...',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          )
+                        : const Center(
+                            child: Text(
+                              'Activity Content. Coming soon...',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ),
               ),
             ),
-            // button row
-            Container(),
           ],
         ),
       ),
