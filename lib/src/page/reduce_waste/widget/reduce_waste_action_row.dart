@@ -1,12 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yuv_quiz/src/domain/reduce_waste/store/reduce_waste_provider.dart';
+import 'package:yuv_quiz/src/page/reduce_waste/constant/reduce_waste_selection_option.dart';
+import 'package:yuv_quiz/src/shared/theme/theme_color.dart';
 import 'package:yuv_quiz/src/shared/widget/action_button.dart';
 
 class ReduceWasteActionRow extends HookConsumerWidget {
-  const ReduceWasteActionRow({super.key});
+  final ReduceWasteSelectionOption selectedOption;
+
+  const ReduceWasteActionRow({
+    super.key,
+    required this.selectedOption,
+  });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final rightButtonText = useMemoized(() {
+      return ReduceWasteSelectionOption.none == selectedOption
+          ? 'Continue'
+          : 'Adjust quantity';
+    }, [selectedOption]);
+
+    final rightButtonColor = useMemoized(() {
+      return ReduceWasteSelectionOption.none == selectedOption
+          ? Colors.black
+          : ThemeColor.adjustedColor;
+    }, [selectedOption]);
+
+    final rightButtonTextColor = useMemoized(() {
+      return ReduceWasteSelectionOption.none == selectedOption
+          ? Colors.white
+          : Colors.black;
+    }, [selectedOption]);
+
+    final rightButtonOnPressed = useCallback(() {
+      if (selectedOption != ReduceWasteSelectionOption.none) {
+        ref.read(selectedReduceAmountProvider.notifier).state = selectedOption;
+      }
+      Navigator.of(context).pop();
+    }, [selectedOption]);
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -41,12 +76,12 @@ class ReduceWasteActionRow extends HookConsumerWidget {
           child: Column(
             children: [
               ActionButton(
-                text: 'Continue',
-                borderColor: Colors.black,
-                backgroundColor: Colors.black,
-                textColor: Colors.white,
+                text: rightButtonText,
+                borderColor: rightButtonColor,
+                backgroundColor: rightButtonColor,
+                textColor: rightButtonTextColor,
                 padding: const EdgeInsets.symmetric(vertical: 26.8),
-                onPressed: () {},
+                onPressed: rightButtonOnPressed,
               ),
             ],
           ),

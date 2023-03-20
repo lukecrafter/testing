@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yuv_quiz/src/domain/reduce_waste/store/reduce_waste_provider.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_waste_content.dart';
 import 'package:yuv_quiz/src/shared/widget/close_button.dart';
 
@@ -8,6 +9,8 @@ class ReduceWastePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final value = ref.watch(selectedReduceAmountProvider);
+
     return DraggableScrollableSheet(
       initialChildSize: 0.66,
       builder: (context, scrollController) {
@@ -29,8 +32,10 @@ class ReduceWastePage extends HookConsumerWidget {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
-              const Positioned.fill(
-                child: ReduceWasteContent(),
+              Positioned.fill(
+                child: ReduceWasteContent(
+                  initialState: value,
+                ),
               ),
             ],
           ),

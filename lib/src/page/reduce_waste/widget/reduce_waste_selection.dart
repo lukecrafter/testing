@@ -5,10 +5,12 @@ import 'package:yuv_quiz/src/shared/widget/filter_selection_button.dart';
 
 class ReduceWasteSelection extends HookConsumerWidget {
   final ReduceWasteSelectionOption selectedOption;
+  final void Function(ReduceWasteSelectionOption) onOptionSelected;
 
   const ReduceWasteSelection({
     super.key,
     required this.selectedOption,
+    required this.onOptionSelected,
   });
 
   @override
@@ -20,7 +22,7 @@ class ReduceWasteSelection extends HookConsumerWidget {
         children: [
           for (final option in ReduceWasteSelectionOption.values) ...[
             FilterSelectionButton(
-              onPressed: () {},
+              onPressed: () => onOptionSelected(option),
               isSelected: selectedOption == option,
               text: option.selectedReduceAmountString,
               padding:

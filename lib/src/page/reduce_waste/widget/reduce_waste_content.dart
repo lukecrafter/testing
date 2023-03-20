@@ -8,14 +8,20 @@ import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_waste_action_row.da
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_waste_selection.dart';
 
 class ReduceWasteContent extends HookConsumerWidget {
-  const ReduceWasteContent({super.key});
+  final ReduceWasteSelectionOption initialState;
+
+  const ReduceWasteContent({
+    super.key,
+    required this.initialState,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // get total weight by using provider
     // final originalTotalWeight = ref.watch(originalTotalWeightProvider);
     const originalTotalWeight = 60.0;
-    final selectedOption = useState(ReduceWasteSelectionOption.none);
+
+    final selectedOption = useState(initialState);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -45,15 +51,20 @@ class ReduceWasteContent extends HookConsumerWidget {
         ),
         ReduceWasteSelection(
           selectedOption: selectedOption.value,
+          onOptionSelected: (option) {
+            selectedOption.value = option;
+          },
         ),
         const Spacer(),
-        const Padding(
-          padding: EdgeInsets.only(
+        Padding(
+          padding: const EdgeInsets.only(
             left: 32.0,
             right: 32.0,
             bottom: 26.0,
           ),
-          child: ReduceWasteActionRow(),
+          child: ReduceWasteActionRow(
+            selectedOption: selectedOption.value,
+          ),
         ),
       ],
     );

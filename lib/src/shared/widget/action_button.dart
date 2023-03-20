@@ -24,22 +24,25 @@ class ActionButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: borderColor,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: borderColor,
+          ),
+          // TODO: update border radius
+          borderRadius: BorderRadius.circular(12.0),
+          color: backgroundColor,
         ),
-        // TODO: update border radius
-        borderRadius: BorderRadius.circular(12.0),
-        color: backgroundColor,
-      ),
-      padding: padding,
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20.0,
+        padding: padding,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 20.0,
+            ),
           ),
         ),
       ),
