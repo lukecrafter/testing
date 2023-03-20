@@ -1,38 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yuv_quiz/src/page/reduce_waste/constant/reduce_waste_selection_option.dart';
 
 class ReduceEstimateResult extends HookConsumerWidget {
-  const ReduceEstimateResult({super.key});
+  final double originalTotalWeight;
+  final ReduceWasteSelectionOption selectedOption;
+
+  const ReduceEstimateResult({
+    super.key,
+    required this.originalTotalWeight,
+    required this.selectedOption,
+  });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // get total weight by using ref.watch
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [
+      children: [
         _EstimateResultItem(
           hints: 'Last dispensed',
-          totalWeight: 60.0,
+          totalWeight: originalTotalWeight,
           colorWeight: 30.0,
           developerWeight: 30.0,
         ),
-        // _EstimateResultItem(
-        //   hints: 'Last dispensed',
-        //   totalWeight: 60.0,
-        //   colorWeight: 30.0,
-        //   developerWeight: 30.0,
-        // ),
+        if (selectedOption != ReduceWasteSelectionOption.none)
+          _EstimateResultItem(
+            hints: 'New Total',
+            totalWeight:
+                originalTotalWeight - selectedOption.selectedReduceAmount,
+            colorWeight:
+                (originalTotalWeight - selectedOption.selectedReduceAmount) / 2,
+            developerWeight:
+                (originalTotalWeight - selectedOption.selectedReduceAmount) / 2,
+          ),
       ],
     );
   }
 }
 
+// TODO: ask what it is and what is the difference between colorWeight and developerWeight
+// TODO: ask is it just simply divide the amount of totalWeight by 2
 class _EstimateResultItem extends HookConsumerWidget {
   final String hints;
   final double totalWeight;
   final double colorWeight;
-  // TODO: as what it is
   final double developerWeight;
 
   const _EstimateResultItem({

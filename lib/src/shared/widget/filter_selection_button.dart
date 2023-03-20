@@ -5,12 +5,19 @@ class FilterSelectionButton extends HookConsumerWidget {
   final VoidCallback onPressed;
   final bool isSelected;
   final String text;
+  final EdgeInsets padding;
 
   const FilterSelectionButton({
     super.key,
     required this.onPressed,
     required this.isSelected,
     required this.text,
+    this.padding = const EdgeInsets.only(
+      left: 19.0,
+      right: 19.0,
+      top: 6.0,
+      bottom: 8.0,
+    ),
   });
 
   @override
@@ -26,12 +33,7 @@ class FilterSelectionButton extends HookConsumerWidget {
           ),
           borderRadius: BorderRadius.circular(19.0),
         ),
-        padding: const EdgeInsets.only(
-          left: 19.0,
-          right: 19.0,
-          top: 6.0,
-          bottom: 8.0,
-        ),
+        padding: padding,
         child: Text(
           text,
           // TODO: update font Helvetica Neue

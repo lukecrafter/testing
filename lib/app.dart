@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yuv_quiz/src/page/color_card_page.dart';
+import 'package:yuv_quiz/src/page/color_card/color_card_page.dart';
 import 'package:yuv_quiz/src/shared/config/no_scroll_glow_behavior.dart';
 
 class YuvSampleApp extends StatelessWidget {
