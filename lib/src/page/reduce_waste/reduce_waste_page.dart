@@ -9,7 +9,7 @@ class ReduceWastePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.76,
+      initialChildSize: 0.66,
       builder: (context, scrollController) {
         return Container(
           decoration: const BoxDecoration(
