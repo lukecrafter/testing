@@ -6,13 +6,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yuv_quiz/src/page/color_card/constant/selected_item.dart';
 import 'package:yuv_quiz/src/page/color_card/widget/color_card_header.dart';
 import 'package:yuv_quiz/src/page/color_card/widget/overview_content.dart';
+import 'package:yuv_quiz/src/page/color_card/widget/overviwe_action_section.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/reduce_waste_page.dart';
 
 class ColorCardPage extends HookConsumerWidget {
   const ColorCardPage({super.key});
 
-  void pushToReduceWastePage(context) {
-    Navigator.of(context).push(
+  Future<void> pushToReduceWastePage(context) async {
+    await Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
         transitionDuration: const Duration(milliseconds: 300),
@@ -70,18 +71,19 @@ class ColorCardPage extends HookConsumerWidget {
       }
     }
 
-    final isPushedReducedPage = useState<bool>(false);
+    final isInitialPushedReducedPage = useState<bool>(false);
+    final isPushed = useState<bool>(false);
 
     useEffect(() {
-      if (!isPushedReducedPage.value) {
-        isPushedReducedPage.value = true;
+      if (!isInitialPushedReducedPage.value) {
+        isInitialPushedReducedPage.value = true;
         Future.delayed(
-          const Duration(seconds: 0),
+          const Duration(seconds: 3),
           () => pushToReduceWastePage(context),
         );
       }
       return null;
-    }, [isPushedReducedPage.value]);
+    }, [isInitialPushedReducedPage.value]);
 
     return Scaffold(
       body: Padding(
@@ -103,7 +105,13 @@ class ColorCardPage extends HookConsumerWidget {
               child: SingleChildScrollView(
                 child: selectedCardView.value == CardView.overview
                     ? GestureDetector(
-                        onTap: () => pushToReduceWastePage(context),
+                        onTap: () async {
+                          if (!isPushed.value) {
+                            isPushed.value = true;
+                            await pushToReduceWastePage(context);
+                            isPushed.value = false;
+                          }
+                        },
                         child: const OverviewContent(),
                       )
                     : selectedCardView.value == CardView.details
@@ -124,6 +132,14 @@ class ColorCardPage extends HookConsumerWidget {
                             ),
                           ),
               ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 32.0,
+                right: 32.0,
+                bottom: 26.0,
+              ),
+              child: OverviewActionSection(),
             ),
           ],
         ),
