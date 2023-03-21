@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yuv_quiz/src/domain/reduce_waste/store/reduce_waste_provider.dart';
 import 'package:yuv_quiz/src/domain/client/store/client_provider.dart';
 import 'package:yuv_quiz/src/page/color_card/constant/selected_item.dart';
+import 'package:yuv_quiz/src/page/reduce_waste/constant/reduce_waste_selection_option.dart';
 import 'package:yuv_quiz/src/shared/widget/close_button.dart';
 import 'package:yuv_quiz/src/shared/widget/filter_selection_button.dart';
 
@@ -77,18 +78,19 @@ class ColorCardHeader extends HookConsumerWidget {
                 isSelected: selectedCardView == CardView.activity,
                 text: 'Activity',
               ),
-              Positioned(
-                top: -5.0,
-                right: 0.0,
-                child: Container(
-                  width: 18.0,
-                  height: 18.0,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFF0000),
-                    shape: BoxShape.circle,
+              if (selectedReduceWasteOption != ReduceWasteSelectionOption.none)
+                Positioned(
+                  top: -5.0,
+                  right: 0.0,
+                  child: Container(
+                    width: 18.0,
+                    height: 18.0,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFFF0000),
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ],
