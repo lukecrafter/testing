@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yuv_quiz/src/domain/reduce_waste/store/reduce_waste_provider.dart';
-import 'package:yuv_quiz/src/domain/user/store/user_provider.dart';
+import 'package:yuv_quiz/src/domain/client/store/client_provider.dart';
 import 'package:yuv_quiz/src/page/color_card/constant/selected_item.dart';
 import 'package:yuv_quiz/src/shared/widget/close_button.dart';
 import 'package:yuv_quiz/src/shared/widget/filter_selection_button.dart';
@@ -19,7 +19,7 @@ class ColorCardHeader extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
+    final client = ref.watch(clientProvider);
     final selectedReduceWasteOption = ref.watch(selectedReduceAmountProvider);
 
     return Padding(
@@ -45,10 +45,10 @@ class ColorCardHeader extends HookConsumerWidget {
           ),
           // title
           Expanded(
-            child: user.when(
+            child: client.when(
               error: (error, stack) => Container(),
               data: (value) => Text(
-                ' ${value.userName}',
+                ' ${value.name}',
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 20.0,
                 ),
