@@ -2,24 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yuv_quiz/src/domain/reduce_waste/mock/mock_data.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/constant/reduce_waste_selection_option.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_estimate_result.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_waste_action_row.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_waste_selection.dart';
 
 class ReduceWasteContent extends HookConsumerWidget {
-  final ReduceWasteSelectionOption initialState;
-
   const ReduceWasteContent({
     super.key,
-    required this.initialState,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // get total weight by using provider
     // final originalTotalWeight = ref.watch(originalTotalWeightProvider);
-    const originalTotalWeight = 60.0;
 
     final selectedOption = useState(initialState);
 
