@@ -9,36 +9,43 @@ import 'package:yuv_quiz/src/shared/widget/action_button.dart';
 
 class ReduceWasteActionRow extends HookConsumerWidget {
   final ReduceWasteSelectionOption selectedOption;
+  final double? weighResult;
+  final VoidCallback leftButtonOnPressed;
 
   const ReduceWasteActionRow({
     super.key,
     required this.selectedOption,
+    this.weighResult,
+    required this.leftButtonOnPressed,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final leftButtonText = useMemoized(() {
+      return weighResult == null ? 'Weigh bowl' : 'Weigh bowl again';
+    }, [weighResult]);
+
     final rightButtonText = useMemoized(() {
-      return ReduceWasteSelectionOption.none == selectedOption
+      return selectedOption == ReduceWasteSelectionOption.none
           ? 'Continue'
           : 'Adjust quantity';
     }, [selectedOption]);
 
     final rightButtonColor = useMemoized(() {
-      return ReduceWasteSelectionOption.none == selectedOption
+      return selectedOption == ReduceWasteSelectionOption.none
           ? Colors.black
           : ThemeColor.adjustedColor;
     }, [selectedOption]);
 
     final rightButtonTextColor = useMemoized(() {
-      return ReduceWasteSelectionOption.none == selectedOption
+      return selectedOption == ReduceWasteSelectionOption.none
           ? Colors.white
           : Colors.black;
     }, [selectedOption]);
 
     final rightButtonOnPressed = useCallback(() {
-      if (selectedOption != ReduceWasteSelectionOption.none) {
-        ref.read(selectedReduceAmountProvider.notifier).state = selectedOption;
-      }
+      ref.read(selectedReduceAmountProvider.notifier).state = selectedOption;
+
       Navigator.of(context).pop();
     }, [selectedOption]);
 
@@ -59,12 +66,12 @@ class ReduceWasteActionRow extends HookConsumerWidget {
               ),
               const SizedBox(height: 16.0),
               ActionButton(
-                text: 'Weigh bowl',
+                text: leftButtonText,
                 borderColor: const Color(0xFF707070),
                 backgroundColor: Colors.white,
                 textColor: Colors.black,
                 padding: const EdgeInsets.symmetric(vertical: 26.8),
-                onPressed: () {},
+                onPressed: leftButtonOnPressed,
               ),
             ],
           ),

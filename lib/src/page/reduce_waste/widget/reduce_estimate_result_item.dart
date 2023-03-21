@@ -7,17 +7,19 @@ class EstimateResultItem extends HookConsumerWidget {
   // TODO: ask is it just simply divide the amount of totalWeight by 2
   final String hints;
   final double totalWeight;
-  final double colorWeight;
-  final double developerWeight;
-  final Color totalWeightTextColor;
+  final String description;
+  final Color backgroundColor;
+  final Color bodyTextColor;
+  final Color? descriptionColor;
 
   const EstimateResultItem({
     super.key,
     required this.hints,
     required this.totalWeight,
-    required this.colorWeight,
-    required this.developerWeight,
-    this.totalWeightTextColor = Colors.black,
+    required this.description,
+    this.backgroundColor = const Color(0xFFF5F5F5),
+    this.bodyTextColor = Colors.black,
+    this.descriptionColor,
   });
 
   @override
@@ -39,7 +41,7 @@ class EstimateResultItem extends HookConsumerWidget {
           width: 206.8,
           height: 156.17,
           decoration: BoxDecoration(
-            color: const Color(0xFFF5F5F5),
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(28.0),
           ),
           child: Column(
@@ -50,15 +52,15 @@ class EstimateResultItem extends HookConsumerWidget {
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 46.0,
                   fontWeight: FontWeight.w500,
-                  color: totalWeightTextColor,
+                  color: bodyTextColor,
                 ),
               ),
               Text(
-                '(${colorWeight.toStringAsFixed(0)}g C + ${developerWeight.toStringAsFixed(0)}g D)',
+                description,
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w500,
-                  color: Colors.black.withOpacity(0.25),
+                  color: descriptionColor ?? Colors.black.withOpacity(0.25),
                 ),
               ),
             ],

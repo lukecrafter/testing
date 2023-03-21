@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FilterSelectionButton extends HookConsumerWidget {
-  final VoidCallback onPressed;
-  final bool isSelected;
   final String text;
+  final bool isSelected;
   final EdgeInsets padding;
+  final VoidCallback onPressed;
 
   const FilterSelectionButton({
     super.key,
-    required this.onPressed,
-    required this.isSelected,
     required this.text,
+    required this.isSelected,
     this.padding = const EdgeInsets.only(
       left: 19.0,
       right: 19.0,
       top: 8.0,
       bottom: 8.0,
     ),
+    required this.onPressed,
   });
 
   @override
@@ -41,6 +41,7 @@ class FilterSelectionButton extends HookConsumerWidget {
             color: isSelected ? Colors.white : Colors.black,
             fontSize: 20.0,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     );

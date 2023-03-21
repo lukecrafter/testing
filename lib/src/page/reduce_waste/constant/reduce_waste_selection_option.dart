@@ -5,17 +5,36 @@ enum ReduceWasteSelectionOption {
   fifteen,
 }
 
+final reduceWasteSelectionOptionValueMap = {
+  ReduceWasteSelectionOption.none: 0.0,
+  ReduceWasteSelectionOption.five: 5.0,
+  ReduceWasteSelectionOption.ten: 10.0,
+  ReduceWasteSelectionOption.fifteen: 15.0,
+};
+
+ReduceWasteSelectionOption fromReduceAmountToReduceWasteSelectionOption(
+    num value) {
+  return reduceWasteSelectionOptionValueMap.entries
+      .firstWhere((element) => element.value == value,
+          orElse: () => const MapEntry(ReduceWasteSelectionOption.none, 0.0))
+      .key;
+}
+
 extension ReduceWasteSelectionOptionEX on ReduceWasteSelectionOption {
   get selectedReduceAmount {
     switch (this) {
       case ReduceWasteSelectionOption.none:
-        return 0.0;
+        return reduceWasteSelectionOptionValueMap[
+            ReduceWasteSelectionOption.none];
       case ReduceWasteSelectionOption.five:
-        return 5.0;
+        return reduceWasteSelectionOptionValueMap[
+            ReduceWasteSelectionOption.five];
       case ReduceWasteSelectionOption.ten:
-        return 10.0;
+        return reduceWasteSelectionOptionValueMap[
+            ReduceWasteSelectionOption.ten];
       case ReduceWasteSelectionOption.fifteen:
-        return 15.0;
+        return reduceWasteSelectionOptionValueMap[
+            ReduceWasteSelectionOption.fifteen];
     }
   }
 
@@ -30,5 +49,12 @@ extension ReduceWasteSelectionOptionEX on ReduceWasteSelectionOption {
       case ReduceWasteSelectionOption.fifteen:
         return '15g less';
     }
+  }
+
+  String description(double originalTotalWeight) {
+    final colorWeight = (originalTotalWeight - selectedReduceAmount) / 2;
+    final developerWeight = (originalTotalWeight - selectedReduceAmount) / 2;
+
+    return '(${colorWeight.toStringAsFixed(0)}g C + ${developerWeight.toStringAsFixed(0)}g D)';
   }
 }
