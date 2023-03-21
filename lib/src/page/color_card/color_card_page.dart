@@ -78,8 +78,12 @@ class ColorCardPage extends HookConsumerWidget {
       if (!isInitialPushedReducedPage.value) {
         isInitialPushedReducedPage.value = true;
         Future.delayed(
-          const Duration(seconds: 3),
-          () => pushToReduceWastePage(context),
+          const Duration(milliseconds: 500),
+          () async {
+            isPushed.value = true;
+            await pushToReduceWastePage(context);
+            isPushed.value = false;
+          },
         );
       }
       return null;
@@ -102,35 +106,36 @@ class ColorCardPage extends HookConsumerWidget {
             ),
             // content
             Expanded(
-              child: SingleChildScrollView(
-                child: selectedCardView.value == CardView.overview
-                    ? GestureDetector(
-                        onTap: () async {
-                          if (!isPushed.value) {
-                            isPushed.value = true;
-                            await pushToReduceWastePage(context);
-                            isPushed.value = false;
-                          }
-                        },
-                        child: const OverviewContent(),
-                      )
-                    : selectedCardView.value == CardView.details
-                        ? const Center(
-                            child: Text(
-                              'Details Content. Coming soon...',
-                              style: TextStyle(
-                                fontSize: 20.0,
+              child: GestureDetector(
+                onTap: () async {
+                  debugPrint('onclicked');
+                  if (!isPushed.value) {
+                    isPushed.value = true;
+                    await pushToReduceWastePage(context);
+                    isPushed.value = false;
+                  }
+                },
+                child: SingleChildScrollView(
+                  child: selectedCardView.value == CardView.overview
+                      ? const OverviewContent()
+                      : selectedCardView.value == CardView.details
+                          ? const Center(
+                              child: Text(
+                                'Details Content. Coming soon...',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            )
+                          : const Center(
+                              child: Text(
+                                'Activity Content. Coming soon...',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
                               ),
                             ),
-                          )
-                        : const Center(
-                            child: Text(
-                              'Activity Content. Coming soon...',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
+                ),
               ),
             ),
             const Padding(
