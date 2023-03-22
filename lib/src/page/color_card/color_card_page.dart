@@ -80,9 +80,11 @@ class ColorCardPage extends HookConsumerWidget {
         Future.delayed(
           const Duration(milliseconds: 500),
           () async {
-            isPushed.value = true;
-            await pushToReduceWastePage(context);
-            isPushed.value = false;
+            if (!isPushed.value) {
+              isPushed.value = true;
+              await pushToReduceWastePage(context);
+              isPushed.value = false;
+            }
           },
         );
       }
@@ -108,7 +110,6 @@ class ColorCardPage extends HookConsumerWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () async {
-                  debugPrint('onclicked');
                   if (!isPushed.value) {
                     isPushed.value = true;
                     await pushToReduceWastePage(context);
