@@ -18,22 +18,7 @@ class ReduceWastePage extends HookConsumerWidget {
               top: Radius.circular(20.0),
             ),
           ),
-          child: Stack(
-            children: [
-              const SizedBox(width: double.infinity, height: double.infinity),
-              // Back Button
-              Positioned(
-                top: 35.0,
-                left: 35.0,
-                child: CustomCloseButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
-              const Positioned.fill(
-                child: ReduceWasteContent(),
-              ),
-            ],
-          ),
+          child: const ReduceWasteContent(),
         );
       },
     );

@@ -10,6 +10,7 @@ import 'package:yuv_quiz/src/page/reduce_waste/constant/reduce_waste_selection_o
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_estimate_result.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_waste_action_row.dart';
 import 'package:yuv_quiz/src/page/reduce_waste/widget/reduce_waste_selection.dart';
+import 'package:yuv_quiz/src/shared/widget/close_button.dart';
 
 class ReduceWasteContent extends HookConsumerWidget {
   const ReduceWasteContent({
@@ -42,15 +43,39 @@ class ReduceWasteContent extends HookConsumerWidget {
         const SizedBox(
           height: 66.0,
         ),
-        Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Reduce Waste',
-            style: GoogleFonts.spaceGrotesk(
-              fontSize: 50.0,
-              color: Colors.black,
+        Row(
+          children: [
+            const SizedBox(
+              width: 35.0,
             ),
-          ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: CustomCloseButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Reduce Waste',
+                  style: GoogleFonts.spaceGrotesk(
+                    fontSize: 50.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(width: 45.0),
+            ),
+            const SizedBox(
+              width: 35.0,
+            ),
+          ],
         ),
         const SizedBox(
           height: 48.0,
