@@ -1,0 +1,10 @@
+flutter_native_splash:
+  color: "#ffffff"
+  android_gravity: center
+  ios_content_mode: center
+  fullscreen: true
+  color_dark: "#000000"
+  image_ios: assets/images/yuv_splash_logo.png
+  android_12:
+    icon_background_color: "#000000"
+    icon_background_color_dark: "#ffffff"
