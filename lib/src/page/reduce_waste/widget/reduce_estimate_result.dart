@@ -25,6 +25,8 @@ class ReduceEstimateResult extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final key = useMemoized(() => GlobalKey<SliverAnimatedListState>(), []);
+    final itemKey = useState(0);
+
     final itemList = useState([
       ReduceWasteDataType.dispensed,
       if (selectedOption != ReduceWasteSelectionOption.none)
@@ -33,6 +35,7 @@ class ReduceEstimateResult extends HookConsumerWidget {
 
     final dispensedItem = useMemoized(
       () => Padding(
+        key: ValueKey('dispensedItemPadding_${itemKey.value}'),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: EstimateResultItem(
           key: const ValueKey('dispensedItem'),
@@ -50,7 +53,7 @@ class ReduceEstimateResult extends HookConsumerWidget {
 
     final usedItem = useMemoized(
       () => Padding(
-        key: const ValueKey('usedItemPadding'),
+        key: ValueKey('usedItemPadding_${itemKey.value}'),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: ReduceEstimateWeightResultItem(
           key: const ValueKey('usedItem'),
@@ -64,7 +67,7 @@ class ReduceEstimateResult extends HookConsumerWidget {
 
     final estimatedItem = useMemoized(
         () => Padding(
-              key: const ValueKey('estimatedItemPadding'),
+              key: ValueKey('estimatedItemPadding_${itemKey.value}'),
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ReduceEstimateNewResultItem(
                 key: const ValueKey('estimatedItem'),
@@ -77,6 +80,11 @@ class ReduceEstimateResult extends HookConsumerWidget {
     final isUpdated = useState(false);
     final isRemoved = useState(false);
     final isInserted = useState(false);
+
+    useEffect(() {
+      itemKey.value = itemKey.value + 1;
+      return null;
+    }, [originalTotalWeight, selectedOption, weightResult]);
 
     useEffect(() {
       final currentList = [...itemList.value];
@@ -162,35 +170,6 @@ class ReduceEstimateResult extends HookConsumerWidget {
           ),
         ],
       ),
-    );
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        for (final item in itemList) ...[
-          if (item == ReduceWasteDataType.dispensed)
-            EstimateResultItem(
-              hints: 'Last dispensed',
-              totalWeight: originalTotalWeight,
-              description: ReduceWasteHelper.getEstimateResultDescription(
-                ReduceWasteDataType.dispensed,
-                colorWeight: originalTotalWeight / 2,
-                developerWeight: originalTotalWeight / 2,
-              ),
-            ),
-          if (item == ReduceWasteDataType.used)
-            ReduceEstimateWeightResultItem(
-              originalTotalWeight: originalTotalWeight,
-              weighResult: weightResult!,
-              remainingWeight: remainingWeight,
-            ),
-          if (item == ReduceWasteDataType.estimated)
-            ReduceEstimateNewResultItem(
-              originalTotalWeight: originalTotalWeight,
-              selectedOption: selectedOption,
-            )
-        ]
-      ],
     );
   }
 }
