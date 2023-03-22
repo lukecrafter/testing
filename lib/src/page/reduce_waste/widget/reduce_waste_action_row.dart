@@ -80,17 +80,17 @@ class ReduceWasteActionRow extends HookConsumerWidget {
           width: 27.0,
         ),
         Expanded(
-          child: Column(
-            children: [
-              ActionButton(
-                text: rightButtonText,
-                borderColor: rightButtonColor,
-                backgroundColor: rightButtonColor,
-                textColor: rightButtonTextColor,
-                padding: const EdgeInsets.symmetric(vertical: 26.8),
-                onPressed: rightButtonOnPressed,
-              ),
-            ],
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: ActionButton(
+              key: ValueKey('${selectedOption.name}confirm'),
+              text: rightButtonText,
+              borderColor: rightButtonColor,
+              backgroundColor: rightButtonColor,
+              textColor: rightButtonTextColor,
+              padding: const EdgeInsets.symmetric(vertical: 26.8),
+              onPressed: rightButtonOnPressed,
+            ),
           ),
         ),
       ],

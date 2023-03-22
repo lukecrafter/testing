@@ -55,11 +55,14 @@ class ReduceWasteContent extends HookConsumerWidget {
         const SizedBox(
           height: 48.0,
         ),
-        ReduceEstimateResult(
-          originalTotalWeight: mockOriginalTotalWeight,
-          weightResult: weighResult.value,
-          remainingWeight: remainingWeight,
-          selectedOption: selectedOption.value,
+        SizedBox(
+          height: 195.0,
+          child: ReduceEstimateResult(
+            originalTotalWeight: mockOriginalTotalWeight,
+            weightResult: weighResult.value,
+            remainingWeight: remainingWeight,
+            selectedOption: selectedOption.value,
+          ),
         ),
         const SizedBox(
           height: 56.8,
