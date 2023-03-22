@@ -63,7 +63,7 @@ class OverViewItem extends HookConsumerWidget {
                           color: Colors.black,
                         ),
                       ),
-                      const SizedBox(width: 60.0),
+                      const Spacer(flex: 1),
                       Text(
                         subtitle ?? '',
                         style: TextStyle(
@@ -72,6 +72,7 @@ class OverViewItem extends HookConsumerWidget {
                           color: Colors.black.withOpacity(0.19),
                         ),
                       ),
+                      const Spacer(flex: 3),
                     ],
                   ),
                   Row(

@@ -26,6 +26,7 @@ class ColorCardHeader extends HookConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 42.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           const SizedBox(
             width: 11.0,
@@ -41,56 +42,58 @@ class ColorCardHeader extends HookConsumerWidget {
               );
             },
           ),
-          const SizedBox(
-            width: 38.3,
-          ),
+          const Spacer(flex: 1),
           // title
-          Expanded(
-            child: client.when(
-              error: (error, stack) => Container(),
-              data: (value) => Text(
-                ' ${value.name}',
-                style: GoogleFonts.spaceGrotesk(
-                  fontSize: 20.0,
-                ),
+          client.when(
+            error: (error, stack) => Container(),
+            data: (value) => Text(
+              ' ${value.name}',
+              style: GoogleFonts.spaceGrotesk(
+                fontSize: 20.0,
               ),
-              loading: () => Container(),
             ),
+            loading: () => Container(),
           ),
-          FilterSelectionButton(
-            onPressed: () => cardViewButtonOnPressed(CardView.overview),
-            isSelected: selectedCardView == CardView.overview,
-            text: 'Overview',
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 19.0),
-            child: FilterSelectionButton(
-              onPressed: () => cardViewButtonOnPressed(CardView.details),
-              isSelected: selectedCardView == CardView.details,
-              text: 'Details',
-            ),
-          ),
-          Stack(
-            clipBehavior: Clip.none,
+          const Spacer(flex: 2),
+          Row(
             children: [
               FilterSelectionButton(
-                onPressed: () => cardViewButtonOnPressed(CardView.activity),
-                isSelected: selectedCardView == CardView.activity,
-                text: 'Activity',
+                onPressed: () => cardViewButtonOnPressed(CardView.overview),
+                isSelected: selectedCardView == CardView.overview,
+                text: 'Overview',
               ),
-              if (selectedReduceWasteOption != ReduceWasteSelectionOption.none)
-                Positioned(
-                  top: -5.0,
-                  right: 0.0,
-                  child: Container(
-                    width: 18.0,
-                    height: 18.0,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFFF0000),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 19.0),
+                child: FilterSelectionButton(
+                  onPressed: () => cardViewButtonOnPressed(CardView.details),
+                  isSelected: selectedCardView == CardView.details,
+                  text: 'Details',
                 ),
+              ),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  FilterSelectionButton(
+                    onPressed: () => cardViewButtonOnPressed(CardView.activity),
+                    isSelected: selectedCardView == CardView.activity,
+                    text: 'Activity',
+                  ),
+                  if (selectedReduceWasteOption !=
+                      ReduceWasteSelectionOption.none)
+                    Positioned(
+                      top: -5.0,
+                      right: 0.0,
+                      child: Container(
+                        width: 18.0,
+                        height: 18.0,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFFF0000),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
         ],
